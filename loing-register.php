@@ -93,13 +93,15 @@
                     echo 'Password is required';
                     return;
                 }
-                include 'connect.php';
+
                 $stmt =  $conn->prepare("SELECT customer_email,customer_password FROM customer WHERE customer_email=? AND customer_password=?");
                 //parameterized query
                 $email = $_POST['email_login'];
                 $password = md5($_POST["password_login"]);
                 $stmt->bind_param("ss", $email, $password);
                 $stmt->execute();
+                echo "<script> alert('profile.php'); </script>";
+                return;
                 if ($stmt->fetch()) {
                     echo "<script> location.href='profile.php'; </script>";
                 } else {
@@ -120,9 +122,9 @@
                 $stmt->close();
                 $conn->close();
                 if ($count > 0) {
-                    echo "Sucess";
+                    $msg = "Sucess";
                 } else {
-                    echo "We could not Register you.Please Try Again";
+                    $msg = "We could not Register you.Please Try Again";
                 }
             }
         }
@@ -131,6 +133,7 @@
 
 
 
+     <p><?php $msg; ?></p>
      <div class="card">
 
          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -143,7 +146,7 @@
 
          </ul>
          <div class="tab-content" id="pills-tabContent">
-             <form class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
                  <div class="form px-4 pt-5">
 
@@ -152,15 +155,13 @@
                      <input type="password" required name="password_login" class="form-control" placeholder="Password">
                      <button name="login_button" class="btn btn-dark btn-block">Login</button>
 
-                     <button class="btn btn-dark btn-block">Login</button>
-
 
                  </div>
 
 
 
              </form>
-             <form class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
 
                  <div class="form px-4">
@@ -172,10 +173,8 @@
                      <input type="tel" required name="phone" class="form-control" placeholder="Phone">
 
                      <input type="password" required name="password" class="form-control" placeholder="Password">
-
+                     <br />
                      <button name="register_button" class="btn btn-dark btn-block">Signup</button>
-
-                     <button class="btn btn-dark btn-block">Signup</button>
 
 
 
