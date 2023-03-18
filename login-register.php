@@ -85,14 +85,7 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             include 'connect.php';
             if (isset($_POST["login_button"])) {
-                if ($_POST['email_login'] == '') {
-                    echo 'Email is required';
-                    return;
-                }
-                if ($_POST['password_login'] == '') {
-                    echo 'Password is required';
-                    return;
-                }
+
 
                 $stmt =  $conn->prepare("SELECT customer_email,customer_password FROM customer WHERE customer_email=? AND customer_password=?");
                 //parameterized query
@@ -100,10 +93,9 @@
                 $password = md5($_POST["password_login"]);
                 $stmt->bind_param("ss", $email, $password);
                 $stmt->execute();
-                echo "<script> alert('profile.php'); </script>";
-                return;
                 if ($stmt->fetch()) {
-                    echo "<script> location.href='profile.php'; </script>";
+                    $_SESSION["user_email"] =  $email;
+                    echo "<script> location.href='index.php'; </script>";
                 } else {
                     $msg = 'error';
                 }
@@ -157,9 +149,6 @@
 
 
                  </div>
-
-
-
              </form>
              <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 

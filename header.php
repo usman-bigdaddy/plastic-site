@@ -1,6 +1,5 @@
 <?php session_start(); ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <!-- Mirrored from preview.colorlib.com/theme/fashe/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Mar 2023 10:02:50 GMT -->
@@ -56,29 +55,34 @@
                                 <a href="index.php">Home</a>
                             </li>
                             <li>
-                                <a href="product.html">Shop</a>
+                                <a href="product.php">Shop</a>
                             </li>
                             <li>
-                                <a href="about.html">About</a>
+                                <a href="about.php">About</a>
                             </li>
                             <li>
-                                <a href="contact.html">Contact</a>
+                                <a href="contact.php">Contact</a>
                             </li>
-
+                            <li>
+                                <a href="vendors.php">Vendors</a>
+                            </li>
                             <li <?php if (isset($_SESSION['user_email'])) echo "style='display: none';" ?>>
-
-                            <li>
-
-                                <a href="loing-register.php">Login / Register</a>
+                                <a href="login-register.php">Login / Register</a>
+                            </li>
+                            <li <?php if (!(isset($_SESSION['user_email']))) echo "style='display: none';" ?>>
+                                <a href="logout.php">Logout</a>
                             </li>
                         </ul>
                     </nav>
                 </div>
 
-                <div class="header-icons">
-                    <a href="#" class="header-wrapicon1 dis-block">
-                        <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON" />
-                    </a>
+                <div <?php if (!(isset($_SESSION['user_email']))) echo "style='display: none';" ?> class="header-icons">
+                    <div>
+                        <a href="#" class="header-wrapicon1 dis-block">
+                            <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON" />
+                        </a>
+                    </div>
+
                     <span class="linedivide1"></span>
                     <div class="header-wrapicon2">
                         <img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON" />
@@ -146,9 +150,11 @@
 
             <div class="btn-show-menu">
                 <div class="header-icons-mobile">
-                    <a href="#" class="header-wrapicon1 dis-block">
-                        <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON" />
-                    </a>
+                    <div <?php if (isset($_SESSION['user_email'])) echo "style='display: none';" ?>>
+                        <a href="#" class="header-wrapicon1 dis-block">
+                            <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON" />
+                        </a>
+                    </div>
                     <span class="linedivide2"></span>
                     <div class="header-wrapicon2">
                         <img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON" />
