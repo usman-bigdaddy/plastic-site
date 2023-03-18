@@ -1,4 +1,6 @@
 <?php session_start(); ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Mirrored from preview.colorlib.com/theme/fashe/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Mar 2023 10:02:50 GMT -->
@@ -62,7 +64,11 @@
                             <li>
                                 <a href="contact.html">Contact</a>
                             </li>
+
                             <li <?php if (isset($_SESSION['user_email'])) echo "style='display: none';" ?>>
+
+                            <li>
+
                                 <a href="loing-register.php">Login / Register</a>
                             </li>
                         </ul>

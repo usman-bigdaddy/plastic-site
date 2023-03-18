@@ -79,6 +79,7 @@
      }
  </style>
  <div class="d-flex justify-content-center align-items-center mt-5">
+
      <?php
         $msg = "";
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -127,6 +128,9 @@
         }
         ?>
 
+
+
+
      <div class="card">
 
          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -148,6 +152,9 @@
                      <input type="password" required name="password_login" class="form-control" placeholder="Password">
                      <button name="login_button" class="btn btn-dark btn-block">Login</button>
 
+                     <button class="btn btn-dark btn-block">Login</button>
+
+
                  </div>
 
 
@@ -167,6 +174,9 @@
                      <input type="password" required name="password" class="form-control" placeholder="Password">
 
                      <button name="register_button" class="btn btn-dark btn-block">Signup</button>
+
+                     <button class="btn btn-dark btn-block">Signup</button>
+
 
 
                  </div>
