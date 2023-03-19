@@ -13,8 +13,7 @@
                     <tr>
                         <th scope="col">S/N</th>
                         <th scope="col"> Name</th>
-                        <th scope="col"> Phone</th>
-                        <th scope="col"> Email</th>
+                        <th scope="col">Logo</th>
                         <th scope="col">Address</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -31,8 +30,9 @@
                         "<tr>" .
                             "<td>" . $count++ . "</td>" .
                             "<td>" . $row['company_name'] . "</td>" .
-                            "<td>" . $row['company_phone'] . "</td>" .
-                            "<td>" . $row['company_email'] . "</td>" .
+                            #"<td>" . $row['company_phone'] . "</td>" .
+                            #"<td>" . $row['company_email'] . "</td>" .
+                            "<td><img style=width:40px;height:40px src=images/company_logo/" . $row['company_logo'] . "></td>" .
                             "<td>" . $row['address'] . "</td>" .
                             "<td><button type=button class='btn btn-success'>View</button></td>" .
                             "</tr>";
