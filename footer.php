@@ -108,6 +108,7 @@
      <span class="symbol-btn-back-to-top">
          <i class="fa fa-angle-double-up" aria-hidden="true"></i>
      </span>
+     <p id="user_email_p"><?php echo $_SESSION['user_email'] ?></p>
  </div>
 
  <div id="dropDownSelect1"></div>
@@ -119,7 +120,17 @@
 
  <script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
  <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
+ <script>
+     $.post("Service/get_cart_count.php", {
+             user_email: $("#user_email_p").text()
+         },
+         function(data, status) {
+             if (data != "") {
+                 $("#cartCount").html(data.trim());
+                 //$("#cartCountFooter").text(data.trim());
+             }
+         }, 'text');
+ </script>
  <script type="text/javascript" src="vendor/select2/select2.min.js"></script>
  <script type="text/javascript">
      $(".selection-1").select2({
@@ -164,8 +175,8 @@
 
  <script src="js/main.js"></script>
  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon='{"rayId":"7a9ca487be733f1a","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.2.0","si":100}' crossorigin="anonymous"></script>
+
  </body>
 
- <!-- Mirrored from preview.colorlib.com/theme/fashe/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Mar 2023 10:03:17 GMT -->
 
  </html>

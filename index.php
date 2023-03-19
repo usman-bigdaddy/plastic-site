@@ -137,7 +137,7 @@
        <div class="row text-center text-lg-start">
          <?php
           include "connect.php";
-          $stmt =  $conn->prepare("SELECT * FROM product LIMIT 10");
+          $stmt =  $conn->prepare("SELECT * FROM product LIMIT 8");
           $stmt->execute();
           $result = $stmt->get_result();
           while ($row = $result->fetch_assoc()) {
@@ -145,8 +145,10 @@
               "<a href=# class=d-block mb-4 h-100>" .
               "<img class=img-fluid img-thumbnail src=images/products/" . $row["product_image"] . ">" .
               "</a>" .
+              "<p style=color:white>" . $row["product_id"] . "</p>" .
+              "<p style=color:white>" . $_SESSION["user_email"] . "</p>" .
               "<p>" . $row["product_name"] . "<br/>N " . $row["price"] . "</p>" .
-              "<a class='btn btn-primary' href=req?q=" . $row["product_id"] . ">Buy</a>" .
+              "<button id=buy_this_item_button class='btn btn-primary'>Buy</button>" .
               "</div>";
           }
           $stmt->close();
@@ -163,3 +165,17 @@
 
 
  <?php include 'footer.php' ?>
+ <script>
+   $(document).on("click", "#buy_this_item_button", function() {
+     pid = $(this).closest("div").find("p:eq(0)").html();
+     user_email = $(this).closest("div").find("p:eq(1)").html();
+     $.post("Service/add_to_cart_process.php", {
+         product_id: pid,
+         user_email: user_email
+
+       },
+       function(data, status) {
+         alert(data);
+       }, 'text');
+   });
+ </script>

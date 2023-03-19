@@ -105,7 +105,7 @@
                     <th scope="col"> Name</th>
                     <th scope="col"> Phone</th>
                     <th scope="col"> Email</th>
-                    <th scope="col">Image</th>
+                    <th scope="col">Logo</th>
                     <th scope="col">Address</th>
                 </tr>
             </thead>

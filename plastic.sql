@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2023 at 01:30 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 7.4.30
+-- Generation Time: Mar 19, 2023 at 03:35 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,6 +32,13 @@ CREATE TABLE `admin` (
   `admin_password` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`admin_email`, `admin_password`) VALUES
+('admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b');
+
 -- --------------------------------------------------------
 
 --
@@ -44,8 +51,17 @@ CREATE TABLE `company` (
   `company_logo` varchar(45) DEFAULT NULL,
   `company_phone` varchar(45) DEFAULT NULL,
   `admin_email` varchar(25) NOT NULL,
-  `company_password` varchar(45) DEFAULT NULL
+  `company_password` varchar(45) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `company`
+--
+
+INSERT INTO `company` (`company_name`, `company_email`, `company_logo`, `company_phone`, `admin_email`, `company_password`, `address`) VALUES
+('Plastic Company One', 'p1@gmail.com', '5HsUfXmtyu.jpg', '0702334444', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Nile University'),
+('Plastic Company Two', 'p2@gmail.com', '0HsUfXmbBI.jpg', '222', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Garki                            ');
 
 -- --------------------------------------------------------
 
@@ -57,14 +73,14 @@ CREATE TABLE `customer` (
   `customer_email` varchar(35) NOT NULL,
   `customer_name` varchar(45) DEFAULT NULL,
   `customer_phone` varchar(45) DEFAULT NULL,
-  `cusotmer_password` varchar(255) DEFAULT NULL
+  `customer_password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`customer_email`, `customer_name`, `customer_phone`, `cusotmer_password`) VALUES
+INSERT INTO `customer` (`customer_email`, `customer_name`, `customer_phone`, `customer_password`) VALUES
 ('usmanbeeabubakar@gmail.com', 'Usman Abubakar', '07034596860', '827ccb0eea8a706c4c34a16891f84e7b');
 
 -- --------------------------------------------------------
@@ -76,10 +92,18 @@ INSERT INTO `customer` (`customer_email`, `customer_name`, `customer_phone`, `cu
 CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
   `product_name` varchar(45) DEFAULT NULL,
-  `product_description` varchar(45) DEFAULT NULL,
+  `product_description` varchar(255) DEFAULT NULL,
   `product_image` varchar(45) DEFAULT NULL,
-  `company_name` varchar(25) NOT NULL
+  `company_email` varchar(55) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `product_image`, `company_email`, `price`) VALUES
+(1, 'Best Plastic', 'Very very good plastic to use', 'p1.jpg', 'p1@gmail.com', '120.00');
 
 -- --------------------------------------------------------
 
@@ -88,13 +112,21 @@ CREATE TABLE `product` (
 --
 
 CREATE TABLE `productrequest` (
-  `customer_email` varchar(25) DEFAULT NULL,
+  `customer_email` varchar(35) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
-  `requestID` varchar(45) NOT NULL,
+  `requestID` int(11) NOT NULL,
   `delivery_address` varchar(45) DEFAULT NULL,
-  `request_date` date DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL
+  `request_date` date DEFAULT current_timestamp(),
+  `status_` varchar(45) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `productrequest`
+--
+
+INSERT INTO `productrequest` (`customer_email`, `product_id`, `requestID`, `delivery_address`, `request_date`, `status_`, `Quantity`) VALUES
+('usmanbeeabubakar@gmail.com', 1, 1, 'Maitama \r\n                    ', '2023-03-19', 'Ordered', 2);
 
 --
 -- Indexes for dumped tables
@@ -123,8 +155,8 @@ ALTER TABLE `customer`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`product_id`,`company_name`),
-  ADD KEY `fk_Product_Company1_idx` (`company_name`);
+  ADD PRIMARY KEY (`product_id`),
+  ADD KEY `fk_Product_Company1_idx` (`company_email`);
 
 --
 -- Indexes for table `productrequest`
@@ -135,27 +167,14 @@ ALTER TABLE `productrequest`
   ADD KEY `fk_Customer_has_Product_Customer1_idx` (`customer_email`);
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- Constraints for table `company`
---
-ALTER TABLE `company`
-  ADD CONSTRAINT `fk_Company_Admin` FOREIGN KEY (`admin_email`) REFERENCES `mydb`.`admin` (`admin_email`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `product`
---
-ALTER TABLE `product`
-  ADD CONSTRAINT `fk_Product_Company1` FOREIGN KEY (`company_name`) REFERENCES `mydb`.`company` (`company_name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `productrequest`
+-- AUTO_INCREMENT for table `productrequest`
 --
 ALTER TABLE `productrequest`
-  ADD CONSTRAINT `fk_Customer_has_Product_Customer1` FOREIGN KEY (`customer_email`) REFERENCES `mydb`.`customer` (`customer_email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Customer_has_Product_Product1` FOREIGN KEY (`product_id`) REFERENCES `mydb`.`product` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

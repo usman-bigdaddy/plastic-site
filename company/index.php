@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Login</title>
+    <title>Company Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
@@ -12015,7 +12015,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center mb-5">
-                    <h2 class="heading-section">Plastic Management System Admin Login</h2>
+                    <h2 class="heading-section">Company Login</h2>
                 </div>
             </div>
             <?php
@@ -12023,15 +12023,15 @@
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 include '../connect.php';
                 if (isset($_POST["login_button"])) {
-                    $stmt =  $conn->prepare("SELECT admin_email,admin_password FROM admin WHERE admin_email=? AND admin_password=?");
+                    $stmt =  $conn->prepare("SELECT company_email,company_password FROM company WHERE company_email=? AND company_password=?");
                     //parameterized query
                     $email = $_POST['email_login'];
                     $password = md5($_POST["password_login"]);
                     $stmt->bind_param("ss", $email, $password);
                     $stmt->execute();
                     if ($stmt->fetch()) {
-                        $_SESSION["admin_email"] =  $email;
-                        echo "<script> location.href='customers.php'; </script>";
+                        $_SESSION["company_email"] =  $email;
+                        echo "<script> location.href='my-products.php'; </script>";
                     } else {
                         echo "<script> alert(Try again); </script>";
                     }
@@ -12043,7 +12043,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
                     <div class="wrap d-md-flex">
-                        <div class="img" style="background-image: url(../images/banner-other-page.jpg);">
+                        <div class="img" style="background-image: url(../images/company-login-pic.jpg);">
                         </div>
                         <div class="login-wrap p-4 p-md-5">
                             <div class="d-flex">
