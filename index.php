@@ -140,13 +140,17 @@
           $stmt =  $conn->prepare("SELECT * FROM product LIMIT 8");
           $stmt->execute();
           $result = $stmt->get_result();
+          $email = "";
+          if (isset($_SESSION['user_email'])) {
+            $email = $_SESSION['user_email'];
+          }
           while ($row = $result->fetch_assoc()) {
             echo "<div class=col-lg-3 col-md-4 col-6>" .
               "<a href=# class=d-block mb-4 h-100>" .
-              "<img class=img-fluid img-thumbnail src=images/products/" . $row["product_image"] . ">" .
+              "<img style=width:120px;height:120px class=img-fluid img-thumbnail src=images/products/" . $row["product_image"] . ">" .
               "</a>" .
               "<p style=color:white>" . $row["product_id"] . "</p>" .
-              "<p style=color:white>" . $_SESSION["user_email"] . "</p>" .
+              "<p style=color:white>" . $email . "</p>" .
               "<p>" . $row["product_name"] . "<br/>N " . $row["price"] . "</p>" .
               "<button id=buy_this_item_button class='btn btn-primary'>Buy</button>" .
               "</div>";
@@ -169,6 +173,10 @@
    $(document).on("click", "#buy_this_item_button", function() {
      pid = $(this).closest("div").find("p:eq(0)").html();
      user_email = $(this).closest("div").find("p:eq(1)").html();
+     if (user_email === "") {
+       alert("please login");
+       return;
+     }
      $.post("Service/add_to_cart_process.php", {
          product_id: pid,
          user_email: user_email

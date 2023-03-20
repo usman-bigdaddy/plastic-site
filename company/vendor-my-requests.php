@@ -17,6 +17,7 @@
                 <tr>
                     <th scope="col">S/N</th>
                     <th scope="col">Customer Email</th>
+                    <th scope="col">Address</th>
                     <th scope="col">Product Name</th>
                     <th scope="col">Unit Price</th>
                     <th scope="col">Quantity</th>
@@ -40,6 +41,7 @@
                     "<tr>" .
                         "<td>" . $count++ . "</td>" .
                         "<td>" . $row['customer_email'] . "</td>" .
+                        "<td>" . $row['delivery_address'] . "</td>" .
                         "<td>" . $row['product_name'] . "</td>" .
                         "<td>" . $row['price'] . "</td>" .
                         "<td>" . $row['Quantity'] . "</td>" .
@@ -50,7 +52,6 @@
                 }
                 $stmt->close();
                 $conn->close();
-
                 ?>
 
             </tbody>

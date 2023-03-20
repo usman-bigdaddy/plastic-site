@@ -26,6 +26,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Could not order";
         }
     }
+    if (isset($_POST["clear_button"])) {
+        $stmt = $conn->prepare(strtolower("DELETE FROM productrequest where customer_email=? AND status_=?"));
+        $stmt->bind_param('ss', $user_email, $stat);
+        $stat = "Cart";
+        $user_email = $_SESSION['user_email'];
+        $stmt->execute();
+        $count = $stmt->affected_rows;
+        $stmt->close();
+        if ($count > 0) {
+            echo "<script> location.href='mycart.php'; </script>";
+        } else {
+            echo "Error!";
+        }
+    }
 }
 ?>
 <section class="bgwhite p-t-66 p-b-60">
@@ -64,7 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             "<td>" . $row['Quantity'] . "</td>" .
                             "<td>" . $row['price'] * $row['Quantity'] . "</td>" .
                             "<td><img style=width:40px;height:40px src=images/products/" . $row['product_image'] . "></td>" .
-                            "<td><button type=button class='btn btn-danger'>Delete</button></td>" .
+                            "<td>" .
+                            "<button id=delete_this_item_button type=button class='btn btn-danger'>Delete</button>" .
+                            "</td>" .
                             "</tr>";
                     }
                     $stmt->close();
@@ -75,6 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </tbody>
             </table>
             <form <?php if ($count == 1) echo "style='display: none';" ?> method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <button name="clear_button" class='btn btn-primary'>Clear Cart</button><br /><br />
                 <textarea required class="form-control" name="address">
 
                     </textarea><br />
@@ -86,3 +103,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </section>
 
 <?php include 'footer.php' ?>
+
+<script>
+    $(document).on("click", "#delete_this_item_button", function() {
+        pid = $(this).closest("div").find("p:eq(0)").html();
+        user_email = $(this).closest("div").find("p:eq(1)").html();
+        $.post("Service/add_to_cart_process.php", {
+                product_id: pid,
+                user_email: user_email
+
+            },
+            function(data, status) {
+                alert(data);
+                //window.location.replace("cart.php");
+            }, 'text');
+    });
+</script>

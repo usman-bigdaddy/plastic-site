@@ -34,7 +34,7 @@
                             #"<td>" . $row['company_email'] . "</td>" .
                             "<td><img style=width:40px;height:40px src=images/company_logo/" . $row['company_logo'] . "></td>" .
                             "<td>" . $row['address'] . "</td>" .
-                            "<td><button type=button class='btn btn-success'>View</button></td>" .
+                            "<td><a href=vendor-products-user-side.php?q=" . $row['company_email'] . " class='btn btn-success'>View</button></td>" .
                             "</tr>";
                     }
                     $stmt->close();

@@ -2,21 +2,26 @@
 
 <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/banner-other-page.jpg);">
     <h2 class="l-text2 t-center">
-        Plastics
+        Vendor's Products
     </h2>
 </section>
-
-<section class="newproduct bgwhite p-t-45 p-b-105">
-    <div class="container">
-        <div class="sec-title p-b-60">
-            <h3 class="m-text5 t-center">Featured Products</h3>
-        </div>
-        <!-- Page Content -->
+<?php
+include "connect.php";
+$company_name = "";
+$stmt =  $conn->prepare(strtolower("SELECT * FROM company where company_email='$_GET[q]'"));
+$stmt->execute();
+$result = $stmt->get_result();
+$value = $result->fetch_object();
+$company_name = $value->company_name;
+$stmt->close();
+?>
+<section style="margin-top: 1%;">
+    <div class="container" style="">
+        <h3>Plastic Products owned by <?php echo $company_name ?></h3>
         <div class="container">
             <div class="row text-center text-lg-start">
                 <?php
-                include "connect.php";
-                $stmt =  $conn->prepare("SELECT * FROM product");
+                $stmt =  $conn->prepare("SELECT * FROM product where company_email='$_GET[q]' ");
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $email = "";
@@ -42,9 +47,6 @@
         </div>
     </div>
 </section>
-
-
-
 
 <?php include 'footer.php' ?>
 <script>

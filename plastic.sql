@@ -1,31 +1,6 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Mar 19, 2023 at 03:35 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+create schema plastic;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `plastic`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
+use plastic;
 
 CREATE TABLE `admin` (
   `admin_email` varchar(25) NOT NULL,
@@ -60,8 +35,8 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`company_name`, `company_email`, `company_logo`, `company_phone`, `admin_email`, `company_password`, `address`) VALUES
-('Plastic Company One', 'p1@gmail.com', '5HsUfXmtyu.jpg', '0702334444', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Nile University'),
-('Plastic Company Two', 'p2@gmail.com', '0HsUfXmbBI.jpg', '222', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Garki                            ');
+('Plastic Company one', 'p1@gmail.com', 'RNYm43inIZ.jpg', '000000', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Garki                            '),
+('Plastic Company Two', 'p2@gmail.com', '5iErRLwFZx.jpg', '222', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Apo');
 
 -- --------------------------------------------------------
 
@@ -81,7 +56,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_email`, `customer_name`, `customer_phone`, `customer_password`) VALUES
-('usmanbeeabubakar@gmail.com', 'Usman Abubakar', '07034596860', '827ccb0eea8a706c4c34a16891f84e7b');
+('aisha@gmail.com', 'Aisha Sani', '0000', '827ccb0eea8a706c4c34a16891f84e7b'),
+('faruk@gmail.com', 'Umar Faruk', '1111', '827ccb0eea8a706c4c34a16891f84e7b');
 
 -- --------------------------------------------------------
 
@@ -103,7 +79,8 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `product_image`, `company_email`, `price`) VALUES
-(1, 'Best Plastic', 'Very very good plastic to use', 'p1.jpg', 'p1@gmail.com', '120.00');
+(1, 'Foreign Plastic', 'From turkey                            ', 'SFIYW7xBkL.jpg', 'p1@gmail.com', '20000.00'),
+(2, 'Local Plastic', 'From kano                            ', 'GDHfq4n163.jpg', 'p2@gmail.com', '12000.00');
 
 -- --------------------------------------------------------
 
@@ -126,7 +103,8 @@ CREATE TABLE `productrequest` (
 --
 
 INSERT INTO `productrequest` (`customer_email`, `product_id`, `requestID`, `delivery_address`, `request_date`, `status_`, `Quantity`) VALUES
-('usmanbeeabubakar@gmail.com', 1, 1, 'Maitama \r\n                    ', '2023-03-19', 'Ordered', 2);
+('faruk@gmail.com', 2, 1, '', '2023-03-20', 'Cart', 1),
+('faruk@gmail.com', 1, 2, '', '2023-03-20', 'Cart', 2);
 
 --
 -- Indexes for dumped tables
@@ -171,10 +149,16 @@ ALTER TABLE `productrequest`
 --
 
 --
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `productrequest`
 --
 ALTER TABLE `productrequest`
-  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
